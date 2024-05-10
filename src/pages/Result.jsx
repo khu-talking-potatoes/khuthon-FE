@@ -19,7 +19,7 @@ const ResultPage = () => {
   //const { isLoadingGem, errorGem, resultGem } = useGetAnswerGemini(prompt);
   const { isLoading4, result4 } = useGetSummary4(prompt);
   const { isLoading, error, result } = useGetSummary(prompt);
-  const { isLoadingSim, similar, length} = usePostImage(apiInput);
+  const { isLoadingSim, errorSim, similar, length} = usePostImage(apiInput);
   const treeCalc = (token) => {
     const numberToTree = Math.ceil((1000 / Number(token)) * 50);
     return numberToTree;
@@ -37,6 +37,9 @@ const ResultPage = () => {
       { name: "gpt-3.5-turbo", answer: result },
       { name: "gpt-4-turbo", answer: result4 },
     ]);
+    if (errorSim) {
+      console.error(error);
+    }
   }, [result4]);
   return (
     <>
