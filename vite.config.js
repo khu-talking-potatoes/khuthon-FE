@@ -5,16 +5,21 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   server: {
     proxy: {
-      // http://localhost:5173/foo -> http://localhost:4567/foo
-      // http://localhost:5173/api/bar-> http://jsonplaceholder.typicode.com/bar
       '/sentence_length': {
         target: 'http://localhost:80',
         changeOrigin: true,
         secure: false,
         rewrite: (path) => path.replace(/^\/api/, '')
       },
-      // http://localhost:5173/fallback/ -> http://jsonplaceholder.typicode.com/
+      '*': {
+        target: 'http://localhost:5173',
+        changeOrigin: true,
+        secure: false,
+        // '/api' 로 시작하는 모든 경로를 '/fallback/' 로 재작성
+        rewrite: (path) => path.replace(/\/api/, '/fallback/')
+      }
     }
   },
+      // http://localhost:5173/fallback/ -> http://jsonplaceholder.typicode.com/
   plugins: [react()],
 })
