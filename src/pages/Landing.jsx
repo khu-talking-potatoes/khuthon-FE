@@ -6,6 +6,8 @@ import TypewriterComponent from "typewriter-effect";
 import AICard from "../components/AICard";
 import GeminiCard from "../components/GeminiCard";
 import GPT4Card from "../components/GPT4Card";
+import { postImage } from '../hooks/similar';
+import { testObj } from '../constants/test';
 
 const Landing = () => {
   const navigate = useNavigate();
@@ -121,6 +123,7 @@ const Landing = () => {
             <GeminiCard />
           </Line>
         </CardContainer>
+        <button onClick={() => postImage(testObj)}>테스트</button>
       </Background>
     </>
   );
