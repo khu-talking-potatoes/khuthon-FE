@@ -48,7 +48,7 @@ const ResultPage = () => {
     <>
       <Background>
         <Logo>
-          Ｆｉｎｄ Ｙｏｕｒ ＡＩ
+        ｓｕｓｔＡＩｎａｂｌｅ
           <div className="leaf-icon">
             <svg
               fill="#ffffff"
