@@ -6,20 +6,22 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Loading from "../components/Loading";
 import TypewriterComponent from "typewriter-effect";
-import { usePostImage } from "../hooks/similar";
+import { postImage } from "../hooks/similar";
 import Spinner from "../assets/images/Rolling.gif";
 
 const ResultPage = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
   const [prompt, setPrompt] = useState();
-  const [apiInput, setApiInput] = useState();
+  const [similar, setSimilar] = useState(false);
+  const [length, setLength] = useState(false);
   //const isLoading = true
   //const isLoadingGem = true
   //const { isLoadingGem, errorGem, resultGem } = useGetAnswerGemini(prompt);
   const { isLoading4, result4 } = useGetSummary4(prompt);
   const { isLoading, error, result } = useGetSummary(prompt);
-  const { isLoadingSim, errorSim, similar, length} = usePostImage(apiInput);
+  //const { isLoadingSim, errorSim, similar, length } = usePostImage(apiInput);
+
   const treeCalc = (token) => {
     const numberToTree = Math.ceil((1000 / Number(token)) * 50);
     return numberToTree;
@@ -33,12 +35,17 @@ const ResultPage = () => {
     }
   });
   useEffect(() => {
-    setApiInput([
-      { name: "gpt-3.5-turbo", answer: result },
-      { name: "gpt-4-turbo", answer: result4 },
-    ]);
-    if (errorSim) {
-      console.error(error);
+    if (result4?.length > 10) {
+      console.log("yes")
+      postImage([
+        { name: "gpt-3.5-turbo", answer: result },
+        { name: "gpt-4-turbo", answer: result4 },
+      ]).then((res) => {
+        console.log(res)
+        setLength(res.len2)
+        setSimilar(Number(res.similarity.toFixed(2)) * 100)
+      });
+      
     }
   }, [result4]);
   return (
@@ -132,7 +139,7 @@ const ResultPage = () => {
           </Column>
         </AnswerContainer>
         <InfoContainer>
-          {(!isLoading4 || isLoadingSim) && (
+          {(isLoading4 || !similar) && (
             <LoadingContainer>
               <img src={Spinner} alt="로딩" />
               <TypewriterComponent
@@ -149,11 +156,16 @@ const ResultPage = () => {
               />
             </LoadingContainer>
           )}
-          {(!isLoadingSim && similar) && (
+          {(!isLoading4 && similar) && (
             <>
               <h2>분석결과</h2>
-              <p>답변 유사도는 <bold>{similar}%</bold>이고,</p>
-              <span>같은 요청을 {treeCalc(length)}회만큼 하면 나무🌲 1그루를 심을 수 있어요!</span>
+              <p>
+                답변 유사도는 <bold>{similar}%</bold>이고,
+              </p>
+              <span>
+                같은 요청을 {treeCalc(length)}회만큼 하면 나무🌲 1그루를 심을 수
+                있어요!
+              </span>
             </>
           )}
         </InfoContainer>
