@@ -12,6 +12,7 @@ const LoadingContainer = styled.div`
   font-size: 15px;
   font-weight: 600;
   line-height: normal;
+  margin-top: 15vh;
 `;
 
 export default function Loading({ loadingText }) {

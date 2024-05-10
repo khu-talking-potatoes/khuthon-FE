@@ -20,13 +20,13 @@ const Landing = () => {
   };
 
   const handleClickCard = (type) => {
-    if (selected.includes(type)){
+    if (selected.includes(type)) {
       const newSelect = selected.filter((elem) => elem !== type);
-      setSelected(newSelect)
-      return
+      setSelected(newSelect);
+      return;
     }
-    const newSelect = [...selected, type]
-    setSelected(newSelect)
+    const newSelect = [...selected, type];
+    setSelected(newSelect);
   };
 
   const handleClickNext = async () => {
@@ -46,6 +46,31 @@ const Landing = () => {
   return (
     <>
       <Background>
+        <div className="text-container">
+          <p>Ｆｉｎｄ Ｙｏｕｒ ＡＩ</p>
+          <div className="leaf-icon">
+            <svg
+              fill="#ffffff"
+              version="1.1"
+              id="Capa_1"
+              xmlns="http://www.w3.org/2000/svg"
+              width="80px"
+              height="80px"
+              viewBox="0 0 551.391 551.391"
+              xmlSpace="preserve"
+            >
+              <g>
+                <path
+                  d="M413.695,0c0,0-45.366,44.014-94.43,61.759C-44.068,193.178,109.165,449.277,114.164,450.121
+		c0,0,20.374-35.48,47.896-55.717c174.644-128.389,210.14-276.171,210.14-276.171s-39.19,177.829-194.562,288.479
+		c-34.316,24.426-57.552,84.568-67.388,144.679c0,0,24.325-9.828,34.785-12.49c4.079-26.618,12.607-52.106,27.025-74.875
+		c217.151,25.854,288.272-149.123,297.563-210.136C491.552,109.79,413.695,0,413.695,0z"
+                />
+              </g>
+            </svg>
+          </div>
+        </div>
+
         <TypewriterContainer>
           <TypewriterComponent
             options={{
@@ -59,7 +84,6 @@ const Landing = () => {
             }}
           />
         </TypewriterContainer>
-
         <InputContainer>
           <ReactTextareaAutosize {...textareaProps} />
           <div className="button" onClick={handleClickNext}>
@@ -78,16 +102,22 @@ const Landing = () => {
           </div>
         </InputContainer>
         <CardContainer>
-          <Line className={selected.includes("gpt3.5") ? "selected" : ""} onClick={()=>handleClickCard("gpt3.5")}>
-            <AICard
-              selected={selected}
-              setSelected={setSelected}
-            />
+          <Line
+            className={selected.includes("gpt3.5") ? "selected" : ""}
+            onClick={() => handleClickCard("gpt3.5")}
+          >
+            <AICard selected={selected} setSelected={setSelected} />
           </Line>
-          <Line className={selected.includes("gpt4") ? "selected" : ""} onClick={()=>handleClickCard("gpt4")}>
+          <Line
+            className={selected.includes("gpt4") ? "selected" : ""}
+            onClick={() => handleClickCard("gpt4")}
+          >
             <GPT4Card />
           </Line>
-          <Line className={selected.includes("gemini") ? "selected" : ""} onClick={()=>handleClickCard("gemini")}>
+          <Line
+            className={selected.includes("gemini") ? "selected" : ""}
+            onClick={() => handleClickCard("gemini")}
+          >
             <GeminiCard />
           </Line>
         </CardContainer>
@@ -105,6 +135,17 @@ const Background = styled.div`
   justify-content: center;
   flex-direction: column;
   background: #6bd19c;
+  .text-container {
+    position: relative;
+    font-size: 48px;
+    color: white;
+    font-weight: 600;
+  }
+  .leaf-icon {
+    position: absolute;
+    top: 0px;
+    right: -80px;
+  }
 `;
 
 const TypewriterContainer = styled.div`
@@ -119,7 +160,7 @@ const InputContainer = styled.div`
   margin-bottom: 20px;
   .input {
     height: 100%;
-    width: 80vw;
+    width: 618px;
     min-height: 50px;
     border: none;
     outline: none;
@@ -148,7 +189,7 @@ const CardContainer = styled.div`
   display: flex;
   gap: 20px;
   .selected {
-    border: 3px solid #0F352C;
+    border: 3px solid #0f352c;
   }
 `;
 
