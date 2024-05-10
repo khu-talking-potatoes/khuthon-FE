@@ -45,7 +45,6 @@ const ResultPage = () => {
         setLength(res.len2)
         setSimilar(Number(res.similarity.toFixed(2)) * 100)
       });
-      
     }
   }, [result4]);
   return (
