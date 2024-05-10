@@ -18,7 +18,7 @@ export const fetchSummary = async (link) => {
         {
           role: 'system',
           content:
-            'You are helpful assistant. your answer need to be shorter than 1000 characters.',
+            'You are helpful assistant. your answer need to be shorter than 500 characters.',
         },
         { role: 'user', content: `${link}` },
       ],
@@ -45,7 +45,7 @@ export const fetchSummary4 = async (link) => {
         {
           role: 'system',
           content:
-            'You are helpful assistant. your answer need to be shorter than 1000 characters.',
+            'You are helpful assistant. your answer need to be shorter than 500 characters.',
         },
         { role: 'user', content: `${link}` },
       ],

@@ -36,17 +36,41 @@ const ResultPage = () => {
   });
   useEffect(() => {
     if (result4?.length > 10) {
-      console.log("yes")
+      console.log("yes");
       postImage(result4, result).then((res) => {
-        console.log(res)
-        setLength(res.len2)
-        setSimilar(Number(res.similarity.toFixed(2)) * 100)
+        console.log(res);
+        setLength(res.data.len2);
+        setSimilar(Number(res.data.similarity.toFixed(2)) * 100);
       });
     }
   }, [result4]);
   return (
     <>
       <Background>
+        <Logo>
+          Ｆｉｎｄ Ｙｏｕｒ ＡＩ
+          <div className="leaf-icon">
+            <svg
+              fill="#ffffff"
+              version="1.1"
+              id="Capa_1"
+              xmlns="http://www.w3.org/2000/svg"
+              width="50px"
+              height="50px"
+              viewBox="0 0 551.391 551.391"
+              xmlSpace="preserve"
+            >
+              <g>
+                <path
+                  d="M413.695,0c0,0-45.366,44.014-94.43,61.759C-44.068,193.178,109.165,449.277,114.164,450.121
+		c0,0,20.374-35.48,47.896-55.717c174.644-128.389,210.14-276.171,210.14-276.171s-39.19,177.829-194.562,288.479
+		c-34.316,24.426-57.552,84.568-67.388,144.679c0,0,24.325-9.828,34.785-12.49c4.079-26.618,12.607-52.106,27.025-74.875
+		c217.151,25.854,288.272-149.123,297.563-210.136C491.552,109.79,413.695,0,413.695,0z"
+                />
+              </g>
+            </svg>
+          </div>
+        </Logo>
         <TopContainer>
           <div>💡 {state.data}</div>
         </TopContainer>
@@ -80,7 +104,7 @@ const ResultPage = () => {
               {isLoading ? (
                 <Loading loadingText="" />
               ) : (
-                <>
+                <TypeContainer>
                   <TypewriterComponent
                     options={{
                       strings: result,
@@ -88,7 +112,7 @@ const ResultPage = () => {
                       delay: 10,
                     }}
                   />
-                </>
+                </TypeContainer>
               )}
             </FirstAnswer>
           </Column>
@@ -121,7 +145,7 @@ const ResultPage = () => {
               {isLoading4 ? (
                 <Loading loadingText="" />
               ) : (
-                <>
+                <TypeContainer>
                   <TypewriterComponent
                     options={{
                       strings: result4,
@@ -129,13 +153,13 @@ const ResultPage = () => {
                       delay: 10,
                     }}
                   />
-                </>
+                </TypeContainer>
               )}
             </SecondAnswer>
           </Column>
         </AnswerContainer>
         <InfoContainer>
-          {(isLoading4 || !similar) && (
+          {false && (
             <LoadingContainer>
               <img src={Spinner} alt="로딩" />
               <TypewriterComponent
@@ -152,17 +176,20 @@ const ResultPage = () => {
               />
             </LoadingContainer>
           )}
-          {(!isLoading4 && similar) && (
-            <>
-              <h2>분석결과</h2>
-              <p>
-                답변 유사도는 <bold>{similar}%</bold>이고,
-              </p>
-              <span>
-                같은 요청을 {treeCalc(length)}회만큼 하면 나무🌲 1그루를 심을 수
-                있어요!
-              </span>
-            </>
+          {true && (
+            <Analytics>
+              <Icon id="1">📝</Icon>
+              <div>
+                <h2>분석결과</h2>
+                <p>답변 유사도는 {similar}%이고,</p>
+                <span>
+                  같은 요청을 {treeCalc(length)}회만큼 하면 나무🌲 1그루를 심을
+                  수 있어요!
+                </span>
+              </div>
+
+              <Icon id="2">🌲</Icon>
+            </Analytics>
           )}
         </InfoContainer>
       </Background>
@@ -170,6 +197,17 @@ const ResultPage = () => {
   );
 };
 export default ResultPage;
+
+const Logo = styled.div`
+  font-size: 48px;
+  color: white;
+  position: relative;
+  .leaf-icon {
+    position: absolute;
+    top: -20px;
+    right: -60px;
+  }
+`;
 
 const Background = styled.div`
   width: 100vw;
@@ -187,6 +225,7 @@ const TopContainer = styled.div`
   padding: 20px;
   background: white;
   border-radius: 10px;
+  font-size: 20px;
 `;
 
 const AnswerContainer = styled.div`
@@ -242,7 +281,28 @@ const LoadingContainer = styled.div`
   justify-content: center;
   min-height: 150px;
   width: 65vw;
+  font-size: 18px;
   img {
     width: 80px;
   }
+`;
+
+const Analytics = styled.div`
+  h2 {
+    margin-top: 0;
+  }
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+`;
+
+const Icon = styled.div`
+  font-size: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const TypeContainer = styled.div`
+  font-size: 20px;
 `;
