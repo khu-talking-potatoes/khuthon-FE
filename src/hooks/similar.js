@@ -14,9 +14,16 @@ export async function postImage(input1, input2) {
   let data = new FormData();
   data.append('sentence1', input1)
   data.append('sentence2', input2)
-  const request = { data : data }
-  const response = await api.post(`/sentence_length`, request);
-  return response.data;
+  let config = {
+    method: 'post',
+    maxBodyLength: Infinity,
+    url: 'http://localhost:80/sentence_length',
+    headers: {
+    },
+    data : data
+  };
+  const res = await axios.request(config)
+  return res
 }
 
 export function usePostImage(input) {
