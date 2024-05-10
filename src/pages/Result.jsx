@@ -159,7 +159,7 @@ const ResultPage = () => {
           </Column>
         </AnswerContainer>
         <InfoContainer>
-          {false && (
+          {(isLoading4 || !similar) && (
             <LoadingContainer>
               <img src={Spinner} alt="로딩" />
               <TypewriterComponent
@@ -176,7 +176,7 @@ const ResultPage = () => {
               />
             </LoadingContainer>
           )}
-          {true && (
+          {(!isLoading4 && similar) && (
             <Analytics>
               <Icon id="1">📝</Icon>
               <div>
