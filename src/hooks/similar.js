@@ -21,7 +21,7 @@ export function usePostImage(input) {
     queryKey: ['post-summary'],
     queryFn: () => postImage(input),
   })
-  const similar = data?.similarity.toFixed(2)
+  const similar = Number(data?.similarity.toFixed(2)) * 100
   const length = data?.len2
   const isLoadingSim = isLoading
   const errorSim = error
