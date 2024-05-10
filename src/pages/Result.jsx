@@ -37,10 +37,7 @@ const ResultPage = () => {
   useEffect(() => {
     if (result4?.length > 10) {
       console.log("yes")
-      postImage([
-        { name: "gpt-3.5-turbo", answer: result },
-        { name: "gpt-4-turbo", answer: result4 },
-      ]).then((res) => {
+      postImage(result4, result).then((res) => {
         console.log(res)
         setLength(res.len2)
         setSimilar(Number(res.similarity.toFixed(2)) * 100)

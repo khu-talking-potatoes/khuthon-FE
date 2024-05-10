@@ -10,8 +10,11 @@ function createInstanceWithoutAuth() {
 
 export const api = createInstanceWithoutAuth();
 
-export async function postImage(input) {
-  const request = { data : input}
+export async function postImage(input1, input2) {
+  let data = new FormData();
+  data.append('sentence1', input1)
+  data.append('sentence2', input2)
+  const request = { data : data }
   const response = await api.post(`/sentence_length`, request);
   return response.data;
 }
