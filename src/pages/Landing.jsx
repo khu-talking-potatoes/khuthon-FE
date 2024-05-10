@@ -6,7 +6,6 @@ import TypewriterComponent from "typewriter-effect";
 import AICard from "../components/AICard";
 import GeminiCard from "../components/GeminiCard";
 import GPT4Card from "../components/GPT4Card";
-import LlamaCard from '../components/LlamaCard';
 
 const Landing = () => {
   const navigate = useNavigate();
@@ -120,12 +119,6 @@ const Landing = () => {
             onClick={() => handleClickCard("gemini")}
           >
             <GeminiCard />
-          </Line>
-          <Line
-            className={selected.includes("Llama") ? "selected" : ""}
-            onClick={() => handleClickCard("Llama")}
-          >
-            <LlamaCard />
           </Line>
         </CardContainer>
       </Background>
